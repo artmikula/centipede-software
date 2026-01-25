@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centipede Software</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', Arial, sans-serif;
+      background: #000;
+      color: #22db1e;
+    }
+    header {
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 1px solid #1f1f1f;
+      background: radial-gradient(circle at top, rgba(4,153,1,0.12), transparent 60%);
+    }
+    h1 {
+      font-size: 3.2rem;
+      margin: 0;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(4,153,1,0.6);
+      animation: flicker 4s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      97% { opacity: 0.8; }
+      98% { opacity: 0.4; }
+      99% { opacity: 0.9; }
+    }
+    .subtitle {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      opacity: 0.85;
+    }
+    section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+    li {
+      border: 1px solid #2a2a2a;
+      padding: 18px;
+      background: linear-gradient(180deg, #050505, #000);
+      box-shadow: 0 0 20px rgba(4,153,1,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    li::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(4,153,1,0.15), transparent);
+      transform: translateX(-100%);
+    }
+    li:hover::before {
+      transform: translateX(100%);
+      transition: transform 0.8s;
+    }
+    form {
+      display: grid;
+      gap: 15px;
+      max-width: 600px;
+    }
+    input, textarea, select {
+      background: #000;
+      color: #32c02f;
+      border: 1px solid #2a2a2a;
+      padding: 12px;
+      font-size: 1rem;
+    }
+    button {
+      background: linear-gradient(90deg, #049901, #caff4a);
+      color: #000;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(4,153,1,0.6);
+    }
+    button:hover {
+      box-shadow: 0 0 35px rgba(4,153,1,0.9);
+      transform: scale(1.02);
+    }
+    button:hover {
+      background: #b6ff3a;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid #1f1f1f;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+    <img src="pnglogo.png" alt="Centipede Software Logo" style="height:64px;max-height:10vw;width:auto;object-fit:contain;filter:drop-shadow(0 0 10px rgba(4,153,1,0.6));" />
+    <h1>Centipede Software</h1>
+  </div>
+  <div class="subtitle" id="locationText">Engineering software for Hernando County</div>
+</header>
+
+<section>
+  <h2>What We Build</h2>
+  <ul>
+    <li><i class="fa-solid fa-globe"></i> Custom Websites & Web Platforms</li>
+    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps (iOS & Android)</li>
+    <li><i class="fa-solid fa-desktop"></i> Desktop Applications</li>
+    <li><i class="fa-solid fa-brain"></i> AI Agents & Automation Bots</li>
+    <li><i class="fa-solid fa-robot"></i> Machine Learning Systems</li>
+    <li><i class="fa-solid fa-sitemap"></i> Internal Business Tools</li>
+    <li><i class="fa-solid fa-code"></i> APIs & Backend Systems</li>
+    <li><i class="fa-solid fa-cloud"></i> SaaS Products</li>
+    <li><i class="fa-solid fa-cart-shopping"></i> E-commerce Platforms</li>
+    <li><i class="fa-solid fa-chart-line"></i> Data Dashboards & Analytics</li>
+    <li><i class="fa-solid fa-gears"></i> Workflow Automation</li>
+    <li><i class="fa-solid fa-server"></i> Cloud Infrastructure & DevOps</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Start a Project</h2>
+  <form action="mailto:epicemporiumcompany@gmail.com" method="POST" enctype="text/plain">
+    <input type="text" name="Company Name" placeholder="Name" required />
+    <input type="email" name="Email Address" placeholder="Email" required />
+    <select name="Project Type" required>
+      <option value="">Select software type</option>
+      <option>Website</option>
+      <option>Mobile App</option>
+      <option>AI / Automation</option>
+      <option>Custom Software</option>
+      <option>SaaS Product</option>
+      <option>Other</option>
+    </select>
+    <textarea name="Project Details" rows="5" placeholder="Describe what you want to build" required></textarea>
+    <button type="submit">SEND REQUEST</button>
+  </form>
+</section>
+
+<footer>
+  © 2026 Centipede Software — Local, precise, relentless development.
+</footer>
+
+</body>
+</html>
