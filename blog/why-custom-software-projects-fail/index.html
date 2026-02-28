@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Custom Software Projects Fail (And How to Avoid It) | Centipede Software</title>
+  <meta name="description" content="Most custom software projects fail not because of bad code, but bad decisions. Learn the warning signs and how to build software that actually ships." />
+  <meta name="keywords" content="custom software, software development, project management, web development, SaaS development" />
+  <link rel="canonical" href="https://artmikula.github.io/centipede-software/blog/why-custom-software-projects-fail/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Why Custom Software Projects Fail (And How to Avoid It)" />
+  <meta property="og:description" content="Most custom software projects fail not because of bad code, but bad decisions." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://artmikula.github.io/centipede-software/blog/why-custom-software-projects-fail/" />
+  <meta property="og:image" content="https://artmikula.github.io/centipede-software/pnglogo.png" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green: #22db1e;
+      --green-dim: rgba(4, 153, 1, 0.6);
+      --green-glow: rgba(4, 153, 1, 0.15);
+      --dark: #000;
+      --card-bg: #060606;
+      --border: #1a1a1a;
+      --text: #c0c0c0;
+      --text-bright: #e8e8e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(4,153,1,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4,153,1,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+
+    .content-wrap { position: relative; z-index: 1; }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 36px; filter: drop-shadow(0 0 8px var(--green-dim)); }
+    .nav-brand span {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--green);
+      letter-spacing: 2px;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000 !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { box-shadow: 0 0 25px var(--green-dim); }
+
+    .article-header {
+      padding: 140px 20px 60px;
+      text-align: center;
+      position: relative;
+    }
+    .article-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(4,153,1,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .article-meta {
+      font-size: 0.85rem;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      max-width: 900px;
+      margin: 0 auto 20px;
+    }
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+    }
+    .article-content h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: #fff;
+      margin: 60px 0 20px;
+      letter-spacing: 1px;
+    }
+    .article-content h3 {
+      font-size: 1.3rem;
+      color: var(--text-bright);
+      margin: 40px 0 16px;
+      font-weight: 600;
+    }
+    .article-content p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .article-content strong {
+      color: var(--text-bright);
+      font-weight: 600;
+    }
+    .article-content em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .highlight-box {
+      background: var(--card-bg);
+      border-left: 4px solid var(--green);
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+    .highlight-box p {
+      margin: 0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000;
+      box-shadow: 0 0 30px rgba(4,153,1,0.4);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 50px rgba(4,153,1,0.7);
+      transform: translateY(-2px);
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 80px 20px;
+      background: rgba(4,153,1,0.02);
+    }
+    .cta-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 32px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    footer span { color: var(--green); }
+
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { gap: 16px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="content-wrap">
+
+  <nav>
+    <a href="/centipede-software/" class="nav-brand">
+      <img src="../../pnglogo.png" alt="Centipede Software" />
+      <span>CENTIPEDE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/centipede-software/#services">Services</a></li>
+      <li><a href="/centipede-software/blog/">Blog</a></li>
+      <li><a href="/centipede-software/#pricing">Pricing</a></li>
+      <li><a href="/centipede-software/#contact" class="nav-cta">GET STARTED</a></li>
+    </ul>
+  </nav>
+
+  <header class="article-header">
+    <div class="article-meta"><i class="fa-solid fa-lightbulb"></i> Software Development</div>
+    <h1 class="article-title">Why Custom Software Projects Fail (And How to Avoid It)</h1>
+    <p class="article-subtitle">Most projects don't fail because of bad code. They fail because of bad decisions made before a single line is written.</p>
+  </header>
+
+  <article class="article-content">
+    <p>You've seen it happen. A company invests six months and $100K into custom software. Deadlines slip. Features get cut. The final product barely works. Six months later, they're starting over with a new team.</p>
+
+    <p>Here's the painful truth: <strong>70% of custom software projects fail to deliver what they promised.</strong> Not because developers are incompetent — because the foundation was rotten from the start.</p>
+
+    <h2>The Problem: Projects Built on Quicksand</h2>
+
+    <p>Most failed projects share the same pattern. The client knows they need software but can't articulate <em>what</em> it should do or <em>why</em>. The dev team doesn't push back — they just start building. Three months in, everyone realizes they're building the wrong thing.</p>
+
+    <p>It's like building a house without blueprints. You might end up with walls and a roof, but the kitchen's in the basement and there's no bathroom.</p>
+
+    <div class="highlight-box">
+      <p><strong>The warning signs:</strong> Vague requirements. No user stories. "We'll figure it out as we go." Developers who say yes to everything. No one asking "why" — just "how fast."</p>
+    </div>
+
+    <h2>The Analogy: Building a Bridge Over a River You've Never Seen</h2>
+
+    <p>Imagine hiring engineers to build a bridge. You tell them "we need to cross the river" — but you haven't told them how wide it is, how deep, whether it floods, or what kind of traffic will cross it.</p>
+
+    <p>They build <em>something</em>. It collapses the first time a truck drives over it. You blame the engineers. They blame you for not giving them requirements. Everyone loses.</p>
+
+    <p><strong>That's most custom software projects.</strong> No discovery phase. No technical planning. Just "we need a platform" and a handshake.</p>
+
+    <h2>The Fix: Build the Right Thing Before You Build Anything</h2>
+
+    <p>Successful projects start with ruthless clarity. Here's what that looks like:</p>
+
+    <h3>1. Define the Problem, Not the Solution</h3>
+    <p>Don't say "we need a mobile app." Say "our sales team wastes 3 hours a day on manual data entry and it's costing us deals." Let the developers figure out if an app is even the right solution.</p>
+
+    <h3>2. Map the User Journey</h3>
+    <p>Who uses this? What are they trying to accomplish? What happens if it fails? If you can't answer these, you're not ready to build.</p>
+
+    <h3>3. Agree on Scope Before Writing Code</h3>
+    <p>Lock down the MVP. Everything else goes in a "Phase 2" backlog. No feature creep. No "just one more thing."</p>
+
+    <h3>4. Hire Developers Who Ask Questions</h3>
+    <p>If a dev team promises to build everything you want in half the time for half the price — run. Good developers push back. They ask "why." They say "no" when a feature doesn't make sense.</p>
+
+    <div class="highlight-box">
+      <p><strong>Bottom line:</strong> Spend 20% of your budget and timeline on discovery. Get the plan right. Then build fast and ship with confidence.</p>
+    </div>
+
+    <h2>What This Looks Like in Practice</h2>
+
+    <p>At Centipede, we don't start coding until everyone agrees on what we're building and why. We run discovery workshops. We map workflows. We design prototypes. We eliminate surprises <em>before</em> they become expensive problems.</p>
+
+    <p>That's why our projects ship on time and actually solve the problem they were hired to solve.</p>
+
+    <p>Need a <a href="/centipede-software/services/web-platforms/" style="color: var(--green); text-decoration: underline;">custom web platform</a> that doesn't turn into a money pit? Want <a href="/centipede-software/services/saas-development/" style="color: var(--green); text-decoration: underline;">SaaS development</a> that actually launches? Let's talk.</p>
+  </article>
+
+  <section class="cta-section">
+    <div>
+      <h2>Let's Build Something That Actually Works</h2>
+      <p>We start every project with a discovery phase so you know exactly what you're getting before we write a single line of code.</p>
+      <a href="/centipede-software/#contact" class="btn btn-primary">GET A FREE CONSULTATION</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 <span>Centipede Software</span> — Precision engineering. Relentless execution.
+  </footer>
+
+</div>
+
+</body>
+</html>

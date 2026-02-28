@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 Signs Your App Needs a Complete Rebuild | Centipede Software</title>
+  <meta name="description" content="Patching old code forever? Here's how to know when it's time to rebuild instead of repair — and how to do it without destroying your business." />
+  <meta name="keywords" content="app rebuild, software rewrite, legacy software, mobile app development, web app modernization" />
+  <link rel="canonical" href="https://artmikula.github.io/centipede-software/blog/signs-your-app-needs-rebuilding/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="5 Signs Your App Needs a Complete Rebuild" />
+  <meta property="og:description" content="Patching old code forever? Here's how to know when it's time to rebuild instead of repair." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://artmikula.github.io/centipede-software/blog/signs-your-app-needs-rebuilding/" />
+  <meta property="og:image" content="https://artmikula.github.io/centipede-software/pnglogo.png" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green: #22db1e;
+      --green-dim: rgba(4, 153, 1, 0.6);
+      --green-glow: rgba(4, 153, 1, 0.15);
+      --dark: #000;
+      --card-bg: #060606;
+      --border: #1a1a1a;
+      --text: #c0c0c0;
+      --text-bright: #e8e8e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(4,153,1,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4,153,1,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+
+    .content-wrap { position: relative; z-index: 1; }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 36px; filter: drop-shadow(0 0 8px var(--green-dim)); }
+    .nav-brand span {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--green);
+      letter-spacing: 2px;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000 !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { box-shadow: 0 0 25px var(--green-dim); }
+
+    .article-header {
+      padding: 140px 20px 60px;
+      text-align: center;
+      position: relative;
+    }
+    .article-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(4,153,1,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .article-meta {
+      font-size: 0.85rem;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      max-width: 900px;
+      margin: 0 auto 20px;
+    }
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+    }
+    .article-content h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: #fff;
+      margin: 60px 0 20px;
+      letter-spacing: 1px;
+    }
+    .article-content h3 {
+      font-size: 1.3rem;
+      color: var(--text-bright);
+      margin: 40px 0 16px;
+      font-weight: 600;
+    }
+    .article-content p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .article-content strong {
+      color: var(--text-bright);
+      font-weight: 600;
+    }
+    .article-content em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .highlight-box {
+      background: var(--card-bg);
+      border-left: 4px solid var(--green);
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+    .highlight-box p {
+      margin: 0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000;
+      box-shadow: 0 0 30px rgba(4,153,1,0.4);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 50px rgba(4,153,1,0.7);
+      transform: translateY(-2px);
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 80px 20px;
+      background: rgba(4,153,1,0.02);
+    }
+    .cta-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 32px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    footer span { color: var(--green); }
+
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { gap: 16px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="content-wrap">
+
+  <nav>
+    <a href="/centipede-software/" class="nav-brand">
+      <img src="../../pnglogo.png" alt="Centipede Software" />
+      <span>CENTIPEDE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/centipede-software/#services">Services</a></li>
+      <li><a href="/centipede-software/blog/">Blog</a></li>
+      <li><a href="/centipede-software/#pricing">Pricing</a></li>
+      <li><a href="/centipede-software/#contact" class="nav-cta">GET STARTED</a></li>
+    </ul>
+  </nav>
+
+  <header class="article-header">
+    <div class="article-meta"><i class="fa-solid fa-wrench"></i> App Development</div>
+    <h1 class="article-title">5 Signs Your App Needs a Complete Rebuild</h1>
+    <p class="article-subtitle">Patching old code forever? Here's how to know when it's time to rebuild instead of repair — and how to do it without destroying your business.</p>
+  </header>
+
+  <article class="article-content">
+    <p>Your app works. Mostly. It crashes sometimes. New features take forever to ship. Your developers keep saying "the codebase is a mess" but you keep asking them to add just one more thing.</p>
+
+    <p>You're not maintaining software anymore. You're performing life support on a patient that's been in a coma for three years.</p>
+
+    <p>Here's the hard question: <strong>Are you building on a foundation that can support your future — or are you duct-taping a sinking ship?</strong></p>
+
+    <h2>The Problem: Death by a Thousand Patches</h2>
+
+    <p>Most companies don't rebuild their apps until it's too late. They keep patching. Adding features. Hiring contractors to "fix it." Every patch makes the next one harder. Every new feature introduces three new bugs.</p>
+
+    <p>Eventually, you're spending more time fixing the old app than you would have spent building a new one.</p>
+
+    <h2>The Analogy: Renovating a Condemned Building</h2>
+
+    <p>Imagine your app is a house built in 1982. The foundation is cracked. The wiring is dangerous. The plumbing leaks. But instead of rebuilding, you keep renovating.</p>
+
+    <p>New paint. New furniture. A second floor addition. It <em>looks</em> modern — until you flip a light switch and the whole block loses power.</p>
+
+    <p><strong>That's what happens when you keep patching legacy software.</strong> You're renovating a condemned building. The smartest move? Tear it down and build something solid.</p>
+
+    <h2>5 Signs It's Time to Rebuild</h2>
+
+    <h3>1. Every New Feature Takes 10x Longer Than It Should</h3>
+    <p>Simple changes that should take a day now take two weeks. Your developers spend more time navigating spaghetti code than writing new features. If adding a button requires touching 47 files, your architecture is broken.</p>
+
+    <h3>2. You're Losing Customers Because of Performance</h3>
+    <p>App crashes. Slow load times. Timeout errors. Users complain in reviews. Your churn rate is climbing. No amount of optimization will fix bad architecture — you need a rewrite.</p>
+
+    <h3>3. The Tech Stack Is Obsolete</h3>
+    <p>Built on Angular 1? PHP 5? jQuery? If no one uses your tech stack anymore, hiring good developers is impossible — and security vulnerabilities are piling up.</p>
+
+    <h3>4. Your Developers Are Afraid to Touch It</h3>
+    <p>If your team says "we can't change that without breaking everything," you're in technical debt prison. Good code is easy to change. Bad code is a minefield.</p>
+
+    <h3>5. The Original Developers Are Gone and No One Understands It</h3>
+    <p>No documentation. No tests. No comments. The people who built it left years ago. New hires spend months just trying to understand what's happening. That's not a codebase — it's archaeology.</p>
+
+    <div class="highlight-box">
+      <p><strong>If three or more of these apply to you, rebuilding will cost less than continuing to patch.</strong></p>
+    </div>
+
+    <h2>The Fix: Rebuild Smart, Not Reckless</h2>
+
+    <p>Rebuilding doesn't mean starting from zero and praying. Here's how to do it without destroying your business:</p>
+
+    <h3>Build in Parallel, Not All at Once</h3>
+    <p>Don't shut down the old app while building the new one. Run them side by side. Migrate users gradually. Test in production. Roll back if something breaks.</p>
+
+    <h3>Keep What Works, Rewrite What Doesn't</h3>
+    <p>Not everything needs to be rebuilt. Keep the parts that are stable. Rewrite the disaster zones. Modernize the architecture without reinventing the wheel.</p>
+
+    <h3>Ship Fast, Iterate Faster</h3>
+    <p>Don't wait 12 months to launch the "perfect" rebuild. Ship an MVP in 8 weeks. Get real users on it. Fix issues in production. Speed beats perfection.</p>
+
+    <h2>What This Looks Like in Practice</h2>
+
+    <p>At Centipede, we've rebuilt <a href="/centipede-software/services/mobile-apps/" style="color: var(--green); text-decoration: underline;">mobile apps</a> for companies tired of crashes and 1-star reviews. We've modernized <a href="/centipede-software/services/web-platforms/" style="color: var(--green); text-decoration: underline;">web platforms</a> stuck on ancient tech stacks. We migrate users without downtime, ship MVPs in weeks, and build systems that don't need a full rewrite every three years.</p>
+
+    <p>If your app is held together with duct tape and prayer, let's talk about rebuilding it the right way.</p>
+  </article>
+
+  <section class="cta-section">
+    <div>
+      <h2>Let's Rebuild Your App the Right Way</h2>
+      <p>We specialize in migrating users from legacy systems to modern platforms — without the disasters most companies experience.</p>
+      <a href="/centipede-software/#contact" class="btn btn-primary">GET A FREE AUDIT</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 <span>Centipede Software</span> — Precision engineering. Relentless execution.
+  </footer>
+
+</div>
+
+</body>
+</html>
