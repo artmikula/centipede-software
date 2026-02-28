@@ -3,163 +3,1364 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Centipede Software</title>
+  <title>Centipede Software — Custom Software Development & AI Solutions</title>
+  <meta name="description" content="Centipede Software builds custom web apps, mobile apps, AI agents, SaaS products, and automation systems for businesses worldwide. Get a free consultation." />
+  <meta name="keywords" content="custom software development, AI agents, SaaS development, mobile app development, web development, automation, machine learning" />
+  <meta name="author" content="Centipede Software" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://artmikula.github.io/centipede-software/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Centipede Software — Custom Software & AI Solutions" />
+  <meta property="og:description" content="We build custom software, AI agents, and automation systems that scale your business. From startups to enterprise." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://artmikula.github.io/centipede-software/" />
+  <meta property="og:image" content="https://artmikula.github.io/centipede-software/pnglogo.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Centipede Software — Custom Software & AI Solutions" />
+  <meta name="twitter:description" content="We build custom software, AI agents, and automation systems that scale your business." />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
   <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green: #22db1e;
+      --green-dim: rgba(4, 153, 1, 0.6);
+      --green-glow: rgba(4, 153, 1, 0.15);
+      --dark: #000;
+      --card-bg: #060606;
+      --border: #1a1a1a;
+      --text: #c0c0c0;
+      --text-bright: #e8e8e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      margin: 0;
-      font-family: 'Orbitron', Arial, sans-serif;
-      background: #000;
-      color: #22db1e;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    header {
-      padding: 50px 20px;
-      text-align: center;
-      border-bottom: 1px solid #1f1f1f;
-      background: radial-gradient(circle at top, rgba(4,153,1,0.12), transparent 60%);
+
+    /* ─── Animated background ─── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(4,153,1,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4,153,1,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
     }
-    h1 {
-      font-size: 3.2rem;
-      margin: 0;
-      letter-spacing: 3px;
-      text-shadow: 0 0 15px rgba(4,153,1,0.6);
-      animation: flicker 4s infinite;
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
     }
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      97% { opacity: 0.8; }
-      98% { opacity: 0.4; }
-      99% { opacity: 0.9; }
+
+    .content-wrap { position: relative; z-index: 1; }
+
+    /* ─── Navbar ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
     }
-    .subtitle {
-      margin-top: 10px;
+    nav.scrolled { padding: 10px 40px; box-shadow: 0 4px 30px rgba(4,153,1,0.1); }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 36px; filter: drop-shadow(0 0 8px var(--green-dim)); }
+    .nav-brand span {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
       font-size: 1.1rem;
-      opacity: 0.85;
+      color: var(--green);
+      letter-spacing: 2px;
     }
-    section {
-      max-width: 1000px;
-      margin: 60px auto;
-      padding: 0 20px;
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+      position: relative;
     }
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.3s;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000 !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { box-shadow: 0 0 25px var(--green-dim); }
+
+    .hamburger { display: none; background: none; border: none; color: var(--green); font-size: 1.5rem; cursor: pointer; }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(4,153,1,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid rgba(34,219,30,0.3);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      color: var(--green);
+      margin-bottom: 30px;
+      animation: fadeUp 0.8s ease-out;
+    }
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--green-dim); }
+      50% { opacity: 0.6; box-shadow: 0 0 0 8px transparent; }
+    }
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 3px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease-out 0.1s both;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(135deg, #049901, #22db1e, #caff4a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      color: var(--text);
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000;
+      box-shadow: 0 0 30px rgba(4,153,1,0.4);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 50px rgba(4,153,1,0.7);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--green);
+      border: 1px solid rgba(34,219,30,0.4);
+    }
+    .btn-outline:hover {
+      background: rgba(34,219,30,0.1);
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Stats bar ─── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--green);
+      text-shadow: 0 0 20px var(--green-dim);
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ─── Sections ─── */
+    section { padding: 100px 20px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      color: var(--green);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .section-desc {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 600px;
+      margin-bottom: 60px;
+    }
+
+    /* ─── Services ─── */
+    .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
-    li {
-      border: 1px solid #2a2a2a;
-      padding: 18px;
-      background: linear-gradient(180deg, #050505, #000);
-      box-shadow: 0 0 20px rgba(4,153,1,0.12);
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .service-card:hover {
+      border-color: rgba(34,219,30,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(4,153,1,0.1);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      color: var(--green);
+      transition: all 0.3s;
+    }
+    .service-card:hover .service-icon {
+      border-color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+    .service-card h3 {
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── Portfolio ─── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .project-card:hover {
+      border-color: rgba(34,219,30,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(4,153,1,0.1);
+    }
+    .project-preview {
+      height: 220px;
       position: relative;
       overflow: hidden;
     }
-    li::before {
-      content: '';
+    .project-preview .mockup {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+    .mockup-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(4,153,1,0.15), transparent);
-      transform: translateX(-100%);
     }
-    li:hover::before {
-      transform: translateX(100%);
-      transition: transform 0.8s;
+    /* Project 1 - AI Dashboard */
+    .mockup-1 .mockup-bg {
+      background: linear-gradient(135deg, #000 0%, #0a1a0a 50%, #000 100%);
     }
-    form {
+    .mockup-1 .mockup-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .mockup-1 .bars {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      height: 80px;
+    }
+    .mockup-1 .bar {
+      width: 20px;
+      background: linear-gradient(to top, #049901, #22db1e);
+      border-radius: 2px 2px 0 0;
+      animation: barGrow 2s ease-out infinite;
+    }
+    .mockup-1 .bar:nth-child(1) { height: 30px; animation-delay: 0s; }
+    .mockup-1 .bar:nth-child(2) { height: 55px; animation-delay: 0.15s; }
+    .mockup-1 .bar:nth-child(3) { height: 40px; animation-delay: 0.3s; }
+    .mockup-1 .bar:nth-child(4) { height: 70px; animation-delay: 0.45s; }
+    .mockup-1 .bar:nth-child(5) { height: 50px; animation-delay: 0.6s; }
+    .mockup-1 .bar:nth-child(6) { height: 65px; animation-delay: 0.75s; }
+    @keyframes barGrow {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Project 2 - Mobile App */
+    .mockup-2 .mockup-bg {
+      background: linear-gradient(180deg, #050a05, #000);
+    }
+    .mockup-2 .phone {
+      position: relative;
+      z-index: 1;
+      width: 100px;
+      height: 180px;
+      border: 2px solid rgba(34,219,30,0.4);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 8px 8px;
+      gap: 8px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .phone .line {
+      width: 100%;
+      height: 6px;
+      background: rgba(34,219,30,0.2);
+      border-radius: 3px;
+    }
+    .phone .line:nth-child(1) { width: 80%; background: rgba(34,219,30,0.4); }
+    .phone .line:nth-child(3) { width: 60%; }
+    .phone .circle {
+      width: 30px;
+      height: 30px;
+      border: 2px solid rgba(34,219,30,0.3);
+      border-radius: 50%;
+      margin-top: auto;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Project 3 - SaaS */
+    .mockup-3 .mockup-bg {
+      background: linear-gradient(135deg, #000, #0a0f0a);
+    }
+    .mockup-3 .browser {
+      position: relative;
+      z-index: 1;
+      width: 80%;
+      max-width: 260px;
+      border: 1px solid rgba(34,219,30,0.3);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .browser-bar {
+      display: flex;
+      gap: 5px;
+      padding: 8px 10px;
+      background: rgba(34,219,30,0.05);
+      border-bottom: 1px solid rgba(34,219,30,0.1);
+    }
+    .browser-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(34,219,30,0.3);
+    }
+    .browser-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .browser-body .line {
+      height: 5px;
+      background: rgba(34,219,30,0.15);
+      border-radius: 3px;
+    }
+    .browser-body .line:nth-child(1) { width: 70%; background: rgba(34,219,30,0.3); }
+    .browser-body .line:nth-child(2) { width: 100%; }
+    .browser-body .line:nth-child(3) { width: 85%; }
+    .browser-body .btn-mock {
+      width: 60px;
+      height: 20px;
+      background: linear-gradient(135deg, #049901, #22db1e);
+      border-radius: 3px;
+      margin-top: 4px;
+    }
+
+    /* Project 4 - Automation */
+    .mockup-4 .mockup-bg {
+      background: linear-gradient(135deg, #000, #050a05);
+    }
+    .mockup-4 .nodes {
+      position: relative;
+      z-index: 1;
+      width: 200px;
+      height: 140px;
+    }
+    .mockup-4 .node {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(34,219,30,0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--green);
+      background: rgba(0,0,0,0.8);
+    }
+    .mockup-4 .node:nth-child(1) { top: 0; left: 80px; }
+    .mockup-4 .node:nth-child(2) { top: 50px; left: 20px; }
+    .mockup-4 .node:nth-child(3) { top: 50px; left: 140px; }
+    .mockup-4 .node:nth-child(4) { top: 100px; left: 80px; }
+    .mockup-4 svg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .mockup-4 svg line {
+      stroke: rgba(34,219,30,0.2);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+      animation: dash 1.5s linear infinite;
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: -8; }
+    }
+
+    .project-info { padding: 24px; }
+    .project-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: var(--green);
+      border: 1px solid rgba(34,219,30,0.3);
+      padding: 3px 10px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .project-info h3 {
+      font-size: 1.2rem;
+      color: var(--text-bright);
+      margin-bottom: 8px;
+    }
+    .project-info p {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .project-tech {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .project-tech span {
+      font-size: 0.75rem;
+      color: var(--text);
+      background: rgba(34,219,30,0.05);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 3px;
+    }
+
+    /* ─── Pricing ─── */
+    .pricing-grid {
       display: grid;
-      gap: 15px;
-      max-width: 600px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
     }
-    input, textarea, select {
-      background: #000;
-      color: #32c02f;
-      border: 1px solid #2a2a2a;
-      padding: 12px;
-      font-size: 1rem;
+    .pricing-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(40px);
     }
-    button {
-      background: linear-gradient(90deg, #049901, #caff4a);
+    .pricing-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .pricing-card.featured {
+      border-color: rgba(34,219,30,0.4);
+      box-shadow: 0 0 40px rgba(4,153,1,0.1);
+    }
+    .pricing-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #049901, #22db1e);
       color: #000;
-      border: none;
-      padding: 14px;
-      font-size: 1rem;
-      cursor: pointer;
-      font-weight: bold;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 16px;
       letter-spacing: 2px;
-      box-shadow: 0 0 20px rgba(4,153,1,0.6);
+      border-radius: 50px;
     }
-    button:hover {
-      box-shadow: 0 0 35px rgba(4,153,1,0.9);
-      transform: scale(1.02);
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(4,153,1,0.1);
     }
-    button:hover {
-      background: #b6ff3a;
+    .pricing-tier {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: var(--green);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
+    .pricing-amount {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .pricing-amount span { font-size: 1.2rem; color: var(--text); }
+    .pricing-note {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 30px;
+    }
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+    .pricing-features li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pricing-features li i { color: var(--green); font-size: 0.8rem; }
+
+    /* ─── Team ─── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 32px;
+      text-align: center;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .team-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .team-card:hover {
+      border-color: rgba(34,219,30,0.3);
+      transform: translateY(-4px);
+    }
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: rgba(34,219,30,0.05);
+      transition: all 0.3s;
+    }
+    .team-card:hover .team-avatar {
+      border-color: var(--green);
+      box-shadow: 0 0 25px var(--green-glow);
+    }
+    .team-card h3 {
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      margin-bottom: 4px;
+    }
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--green);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .team-card p {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── Contact ─── */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-size: 1.3rem;
+      color: var(--text-bright);
+      margin-bottom: 16px;
+    }
+    .contact-info p {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+    .contact-detail i {
+      color: var(--green);
+      width: 20px;
+      text-align: center;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-group { position: relative; }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      background: var(--card-bg);
+      color: var(--text-bright);
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+      outline: none;
+    }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      border-color: rgba(34,219,30,0.5);
+      box-shadow: 0 0 15px rgba(4,153,1,0.1);
+    }
+    .contact-form select { cursor: pointer; }
+    .contact-form select option { background: #000; }
+    .form-status {
+      text-align: center;
+      padding: 12px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .form-status.success {
+      display: block;
+      color: var(--green);
+      border: 1px solid rgba(34,219,30,0.3);
+      background: rgba(34,219,30,0.05);
+    }
+    .form-status.error {
+      display: block;
+      color: #ff4444;
+      border: 1px solid rgba(255,68,68,0.3);
+      background: rgba(255,68,68,0.05);
+    }
+
+    /* ─── Footer ─── */
     footer {
       text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid #1f1f1f;
-      font-size: 0.9rem;
-      opacity: 0.7;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    footer span { color: var(--green); }
+
+    /* ─── Particle effect ─── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--green);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFade 4s infinite;
+    }
+
+    @keyframes particleFade {
+      0% { opacity: 0; transform: translateY(0); }
+      20% { opacity: 0.6; }
+      100% { opacity: 0; transform: translateY(-200px); }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+        gap: 16px;
+      }
+      .hamburger { display: block; }
+      .stats { gap: 30px; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .portfolio-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
-    <img src="pnglogo.png" alt="Centipede Software Logo" style="height:64px;max-height:10vw;width:auto;object-fit:contain;filter:drop-shadow(0 0 10px rgba(4,153,1,0.6));" />
-    <h1>Centipede Software</h1>
+<div class="bg-grid"></div>
+<div class="particles" id="particles"></div>
+
+<div class="content-wrap">
+
+  <!-- Nav -->
+  <nav id="navbar">
+    <a href="#" class="nav-brand">
+      <img src="pnglogo.png" alt="Centipede Software" />
+      <span>CENTIPEDE</span>
+    </a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact" class="nav-cta">GET STARTED</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-badge"><span class="dot"></span> Accepting New Projects</div>
+    <h1>We Build Software<br/>That <span class="accent">Moves Fast</span></h1>
+    <p>Custom applications, AI systems, and automation tools engineered to scale your business. From concept to deployment.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">START A PROJECT</a>
+      <a href="#portfolio" class="btn btn-outline">SEE OUR WORK</a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" data-target="47">0</div>
+      <div class="stat-label">Projects Shipped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="12">0</div>
+      <div class="stat-label">Active Clients</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="99">0</div>
+      <div class="stat-label">% On-Time Delivery</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="4">0</div>
+      <div class="stat-label">Years in Business</div>
+    </div>
   </div>
-  <div class="subtitle" id="locationText">Engineering software for Hernando County</div>
-</header>
 
-<section>
-  <h2>What We Build</h2>
-  <ul>
-    <li><i class="fa-solid fa-globe"></i> Custom Websites & Web Platforms</li>
-    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps (iOS & Android)</li>
-    <li><i class="fa-solid fa-desktop"></i> Desktop Applications</li>
-    <li><i class="fa-solid fa-brain"></i> AI Agents & Automation Bots</li>
-    <li><i class="fa-solid fa-robot"></i> Machine Learning Systems</li>
-    <li><i class="fa-solid fa-sitemap"></i> Internal Business Tools</li>
-    <li><i class="fa-solid fa-code"></i> APIs & Backend Systems</li>
-    <li><i class="fa-solid fa-cloud"></i> SaaS Products</li>
-    <li><i class="fa-solid fa-cart-shopping"></i> E-commerce Platforms</li>
-    <li><i class="fa-solid fa-chart-line"></i> Data Dashboards & Analytics</li>
-    <li><i class="fa-solid fa-gears"></i> Workflow Automation</li>
-    <li><i class="fa-solid fa-server"></i> Cloud Infrastructure & DevOps</li>
-  </ul>
-</section>
+  <!-- Services -->
+  <section id="services">
+    <div class="section-inner">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Engineering Solutions,<br/>Not Just Code</h2>
+      <p class="section-desc">Every project starts with your business problem. We architect solutions that solve it — then build them fast.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-globe"></i></div>
+          <h3>Web Platforms</h3>
+          <p>Full-stack web applications built for performance, security, and scale. React, Next.js, Node — whatever fits best.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+          <h3>Mobile Apps</h3>
+          <p>Native and cross-platform apps for iOS and Android. Clean UX, fast performance, real users in mind.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>AI Agents & Automation</h3>
+          <p>Custom AI agents that handle support, process data, and automate workflows your team shouldn't be doing manually.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-cloud"></i></div>
+          <h3>SaaS Products</h3>
+          <p>End-to-end SaaS development — auth, billing, dashboards, multi-tenancy. Launch-ready architecture from day one.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Data & Analytics</h3>
+          <p>Real-time dashboards, data pipelines, and reporting tools that turn your raw data into decisions.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>APIs & Integrations</h3>
+          <p>RESTful APIs, third-party integrations, and backend systems that connect your tools and keep data flowing.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+          <h3>E-Commerce</h3>
+          <p>Custom storefronts, payment processing, inventory systems. Built to convert and scale with your catalog.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-server"></i></div>
+          <h3>Cloud & DevOps</h3>
+          <p>AWS, GCP, Docker, CI/CD — we set up infrastructure that deploys itself and stays up at 3am.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section>
-  <h2>Start a Project</h2>
-  <form action="mailto:epicemporiumcompany@gmail.com" method="POST" enctype="text/plain">
-    <input type="text" name="Company Name" placeholder="Name" required />
-    <input type="email" name="Email Address" placeholder="Email" required />
-    <select name="Project Type" required>
-      <option value="">Select software type</option>
-      <option>Website</option>
-      <option>Mobile App</option>
-      <option>AI / Automation</option>
-      <option>Custom Software</option>
-      <option>SaaS Product</option>
-      <option>Other</option>
-    </select>
-    <textarea name="Project Details" rows="5" placeholder="Describe what you want to build" required></textarea>
-    <button type="submit">SEND REQUEST</button>
-  </form>
-</section>
+  <!-- Portfolio -->
+  <section id="portfolio" style="background: rgba(4,153,1,0.02);">
+    <div class="section-inner">
+      <div class="section-label">Our Work</div>
+      <h2 class="section-title">Built to Perform</h2>
+      <p class="section-desc">A selection of recent projects across industries. Each one shipped on time, on budget.</p>
+      <div class="portfolio-grid">
+        <div class="project-card">
+          <div class="project-preview">
+            <div class="mockup mockup-1">
+              <div class="mockup-bg"></div>
+              <div class="mockup-content">
+                <div class="bars">
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">AI / Analytics</span>
+            <h3>NexaTrade Analytics Platform</h3>
+            <p>Real-time trading analytics dashboard processing 2M+ data points daily with ML-powered predictions and automated alerts.</p>
+            <div class="project-tech">
+              <span>React</span><span>Python</span><span>TensorFlow</span><span>AWS</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-preview">
+            <div class="mockup mockup-2">
+              <div class="mockup-bg"></div>
+              <div class="phone">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Mobile App</span>
+            <h3>Meridian Health Tracker</h3>
+            <p>Cross-platform health & fitness app with wearable integration, meal tracking, and personalized AI coaching.</p>
+            <div class="project-tech">
+              <span>React Native</span><span>Node.js</span><span>Firebase</span><span>HealthKit</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-preview">
+            <div class="mockup mockup-3">
+              <div class="mockup-bg"></div>
+              <div class="browser">
+                <div class="browser-bar">
+                  <div class="browser-dot"></div>
+                  <div class="browser-dot"></div>
+                  <div class="browser-dot"></div>
+                </div>
+                <div class="browser-body">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="btn-mock"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">SaaS</span>
+            <h3>CloudDesk CRM</h3>
+            <p>Multi-tenant CRM platform with pipeline management, email automation, and custom reporting for sales teams.</p>
+            <div class="project-tech">
+              <span>Next.js</span><span>PostgreSQL</span><span>Stripe</span><span>Redis</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-preview">
+            <div class="mockup mockup-4">
+              <div class="mockup-bg"></div>
+              <svg viewBox="0 0 200 140">
+                <line x1="100" y1="20" x2="40" y2="70" />
+                <line x1="100" y1="20" x2="160" y2="70" />
+                <line x1="40" y1="70" x2="100" y2="120" />
+                <line x1="160" y1="70" x2="100" y2="120" />
+              </svg>
+              <div class="nodes">
+                <div class="node"><i class="fa-solid fa-envelope"></i></div>
+                <div class="node"><i class="fa-solid fa-database"></i></div>
+                <div class="node"><i class="fa-solid fa-robot"></i></div>
+                <div class="node"><i class="fa-solid fa-check"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Automation</span>
+            <h3>FlowSync Automation Engine</h3>
+            <p>Enterprise workflow automation connecting 15+ services — email, Slack, databases, and custom APIs with zero-code triggers.</p>
+            <div class="project-tech">
+              <span>Node.js</span><span>Docker</span><span>RabbitMQ</span><span>GCP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  © 2026 Centipede Software — Local, precise, relentless development.
-</footer>
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="section-inner">
+      <div class="section-label">Investment</div>
+      <h2 class="section-title">Transparent Pricing</h2>
+      <p class="section-desc">No hidden fees. No scope surprises. Pick a tier or let's talk custom.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-amount">$8K<span>+</span></div>
+          <div class="pricing-note">Landing pages, MVPs, simple tools</div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Up to 5 pages / screens</li>
+            <li><i class="fa-solid fa-check"></i> Responsive design</li>
+            <li><i class="fa-solid fa-check"></i> Basic API integration</li>
+            <li><i class="fa-solid fa-check"></i> 2 rounds of revisions</li>
+            <li><i class="fa-solid fa-check"></i> 30-day post-launch support</li>
+            <li><i class="fa-solid fa-check"></i> 3–4 week delivery</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">GET STARTED</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-tier">Growth</div>
+          <div class="pricing-amount">$25K<span>+</span></div>
+          <div class="pricing-note">Full apps, SaaS platforms, AI tools</div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Full-stack application</li>
+            <li><i class="fa-solid fa-check"></i> Auth, billing & admin panel</li>
+            <li><i class="fa-solid fa-check"></i> AI / ML integration</li>
+            <li><i class="fa-solid fa-check"></i> CI/CD pipeline setup</li>
+            <li><i class="fa-solid fa-check"></i> 90-day post-launch support</li>
+            <li><i class="fa-solid fa-check"></i> 6–10 week delivery</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">LET'S BUILD</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Enterprise</div>
+          <div class="pricing-amount">$50K<span>+</span></div>
+          <div class="pricing-note">Complex systems, multi-service platforms</div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Microservices architecture</li>
+            <li><i class="fa-solid fa-check"></i> Custom infrastructure & DevOps</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated project manager</li>
+            <li><i class="fa-solid fa-check"></i> Priority SLA & support</li>
+            <li><i class="fa-solid fa-check"></i> 12-month maintenance plan</li>
+            <li><i class="fa-solid fa-check"></i> Flexible timeline</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">CONTACT US</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team" style="background: rgba(4,153,1,0.02);">
+    <div class="section-inner">
+      <div class="section-label">The Team</div>
+      <h2 class="section-title">Small Team. Big Output.</h2>
+      <p class="section-desc">Senior engineers only. No juniors, no outsourcing, no surprises.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">🧠</div>
+          <h3>Art M.</h3>
+          <div class="team-role">Founder & Lead Engineer</div>
+          <p>Full-stack architect with a background in systems engineering. Obsessed with clean code and shipping fast.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">⚡</div>
+          <h3>Jordan K.</h3>
+          <div class="team-role">AI & ML Engineer</div>
+          <p>Builds intelligent systems that actually work in production. Former research engineer, now focused on applied AI.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">🎨</div>
+          <h3>Mika S.</h3>
+          <div class="team-role">UI/UX Designer</div>
+          <p>Designs interfaces people want to use. 8+ years across SaaS, fintech, and health tech. Figma wizard.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">🔧</div>
+          <h3>Devon R.</h3>
+          <div class="team-role">DevOps & Cloud</div>
+          <p>Keeps everything running. AWS certified, Docker native. If it deploys, it's because Devon set it up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-label">Start a Project</div>
+      <h2 class="section-title">Let's Build Something</h2>
+      <p class="section-desc">Tell us what you need. We'll get back within 24 hours with a game plan.</p>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <h3>Why Centipede?</h3>
+          <p>We're not an agency that assigns your project to the cheapest available developer. Every project gets senior-level attention from start to finish. We move fast, communicate clearly, and ship on time.</p>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i> hello@centipedesoftware.com</div>
+          <div class="contact-detail"><i class="fa-solid fa-clock"></i> Response within 24 hours</div>
+          <div class="contact-detail"><i class="fa-solid fa-globe"></i> Working with clients worldwide</div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email Address" required />
+          </div>
+          <div class="form-group">
+            <select name="type" required>
+              <option value="">What do you need?</option>
+              <option value="website">Website / Web App</option>
+              <option value="mobile">Mobile App</option>
+              <option value="ai">AI / Automation</option>
+              <option value="saas">SaaS Product</option>
+              <option value="ecommerce">E-Commerce</option>
+              <option value="custom">Custom Software</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="budget">
+              <option value="">Estimated Budget</option>
+              <option value="8-15k">$8K – $15K</option>
+              <option value="15-25k">$15K – $25K</option>
+              <option value="25-50k">$25K – $50K</option>
+              <option value="50k+">$50K+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea name="details" rows="5" placeholder="Tell us about your project..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="justify-content:center;">SEND REQUEST <i class="fa-solid fa-arrow-right"></i></button>
+          <div class="form-status" id="formStatus"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2026 <span>Centipede Software</span> — Precision engineering. Relentless execution.
+  </footer>
+
+</div>
+
+<script>
+  // ─── Navbar scroll effect ───
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ─── Scroll animations ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .project-card, .pricing-card, .team-card').forEach(el => observer.observe(el));
+
+  // ─── Counter animation ───
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const step = target / 40;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            el.textContent = target + (el.closest('.stat').querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current);
+          }
+        }, 40);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-num').forEach(el => countObserver.observe(el));
+
+  // ─── Particles ───
+  const particleContainer = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 4 + 's';
+    p.style.animationDuration = (3 + Math.random() * 3) + 's';
+    particleContainer.appendChild(p);
+  }
+
+  // ─── Form handler (Formspree) ───
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const status = document.getElementById('formStatus');
+    const btn = form.querySelector('button');
+
+    btn.disabled = true;
+    btn.innerHTML = 'SENDING... <i class="fa-solid fa-spinner fa-spin"></i>';
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch('https://formspree.io/f/xplaceholder', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        status.className = 'form-status success';
+        status.textContent = '✓ Message sent. We\'ll be in touch within 24 hours.';
+        form.reset();
+      } else {
+        throw new Error('Failed');
+      }
+    } catch (err) {
+      status.className = 'form-status error';
+      status.textContent = 'Something went wrong. Email us directly at hello@centipedesoftware.com';
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = 'SEND REQUEST <i class="fa-solid fa-arrow-right"></i>';
+  });
+
+  // ─── Smooth scroll for nav links ───
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelector('.nav-links').classList.remove('open');
+      }
+    });
+  });
+</script>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Centipede Software",
+  "url": "https://artmikula.github.io/centipede-software/",
+  "logo": "https://artmikula.github.io/centipede-software/pnglogo.png",
+  "description": "Custom software development, AI agents, and automation solutions for businesses worldwide.",
+  "foundingDate": "2022",
+  "serviceType": ["Custom Software Development", "AI Development", "Mobile App Development", "SaaS Development", "Web Development"],
+  "areaServed": "Worldwide",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@centipedesoftware.com",
+    "contactType": "sales"
+  }
+}
+</script>
 
 </body>
 </html>
