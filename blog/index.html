@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Centipede Software | Software Development Insights</title>
+  <meta name="description" content="Insights on custom software development, AI automation, app rebuilds, and scaling your business with technology. From the Centipede Software team." />
+  <link rel="canonical" href="https://artmikula.github.io/centipede-software/blog/" />
+  <meta property="og:title" content="Blog — Centipede Software" />
+  <meta property="og:description" content="Insights on custom software development, AI automation, and scaling with technology." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://artmikula.github.io/centipede-software/blog/" />
+  <meta property="og:image" content="https://artmikula.github.io/centipede-software/pnglogo.png" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --green: #22db1e;
+      --green-dim: rgba(4, 153, 1, 0.6);
+      --green-glow: rgba(4, 153, 1, 0.15);
+      --dark: #000;
+      --card-bg: #060606;
+      --border: #1a1a1a;
+      --text: #c0c0c0;
+      --text-bright: #e8e8e8;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(4,153,1,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4,153,1,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove { 0% { transform: translate(0,0); } 100% { transform: translate(60px,60px); } }
+    .content-wrap { position: relative; z-index: 1; }
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 16px 40px; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-brand img { height: 36px; filter: drop-shadow(0 0 8px var(--green-dim)); }
+    .nav-brand span { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--green); letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px; transition: color 0.3s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--green); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { background: linear-gradient(135deg, #049901, #22db1e); color: #000 !important; padding: 8px 20px; border-radius: 4px; font-weight: 700; letter-spacing: 1px; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { box-shadow: 0 0 25px var(--green-dim); }
+
+    .page-header {
+      padding: 140px 20px 60px; text-align: center; position: relative;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; background: radial-gradient(circle, rgba(4,153,1,0.08), transparent 70%); pointer-events: none;
+    }
+    .section-label { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--green); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px; }
+    .page-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff; letter-spacing: 1px; margin-bottom: 16px; }
+    .page-desc { font-size: 1.1rem; color: var(--text); max-width: 600px; margin: 0 auto; }
+
+    .blog-grid {
+      max-width: 1000px; margin: 0 auto; padding: 60px 20px 100px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+    }
+    .blog-card {
+      background: var(--card-bg); border: 1px solid var(--border); padding: 32px;
+      transition: all 0.4s; text-decoration: none; display: block;
+    }
+    .blog-card:hover {
+      border-color: rgba(34,219,30,0.3); transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(4,153,1,0.1);
+    }
+    .blog-tag {
+      display: inline-block; font-size: 0.7rem; color: var(--green);
+      border: 1px solid rgba(34,219,30,0.3); padding: 3px 10px; border-radius: 50px;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .blog-card h2 { font-size: 1.2rem; color: var(--text-bright); margin-bottom: 12px; line-height: 1.4; }
+    .blog-card p { font-size: 0.9rem; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+    .blog-card .read-more { font-size: 0.85rem; color: var(--green); font-weight: 600; letter-spacing: 1px; }
+
+    footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text); }
+    footer span { color: var(--green); }
+    @media (max-width: 768px) { nav { padding: 12px 20px; } .nav-links { gap: 16px; font-size: 0.85rem; } }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="content-wrap">
+
+  <nav>
+    <a href="/centipede-software/" class="nav-brand">
+      <img src="../pnglogo.png" alt="Centipede Software" />
+      <span>CENTIPEDE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/centipede-software/#services">Services</a></li>
+      <li><a href="/centipede-software/blog/">Blog</a></li>
+      <li><a href="/centipede-software/#pricing">Pricing</a></li>
+      <li><a href="/centipede-software/#contact" class="nav-cta">GET STARTED</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="section-label">Insights</div>
+    <h1 class="page-title">From the Blog</h1>
+    <p class="page-desc">Practical thinking on software, automation, and building things that work.</p>
+  </div>
+
+  <div class="blog-grid">
+    <a href="/centipede-software/blog/why-custom-software-projects-fail/" class="blog-card">
+      <span class="blog-tag">Software Development</span>
+      <h2>Why Custom Software Projects Fail (And How to Avoid It)</h2>
+      <p>Most projects don't fail because of bad code. They fail because of bad decisions made before a single line is written.</p>
+      <span class="read-more">READ MORE →</span>
+    </a>
+    <a href="/centipede-software/blog/signs-your-app-needs-rebuilding/" class="blog-card">
+      <span class="blog-tag">Mobile & Web Apps</span>
+      <h2>Signs Your App Needs Rebuilding</h2>
+      <p>That app you launched two years ago? It might be silently killing your business. Here's how to tell.</p>
+      <span class="read-more">READ MORE →</span>
+    </a>
+    <a href="/centipede-software/blog/ai-automation-vs-hiring/" class="blog-card">
+      <span class="blog-tag">AI & Automation</span>
+      <h2>AI Automation vs. Hiring: When to Build a Bot Instead</h2>
+      <p>You don't need another employee. You need a system that doesn't call in sick, forget steps, or need training twice.</p>
+      <span class="read-more">READ MORE →</span>
+    </a>
+    <a href="/centipede-software/blog/when-slow-software-costs-revenue/" class="blog-card">
+      <span class="blog-tag">Performance & Scale</span>
+      <h2>When Slow Software Costs You Revenue</h2>
+      <p>Every second your app takes to load, you're losing users. Here's when slow becomes expensive.</p>
+      <span class="read-more">READ MORE →</span>
+    </a>
+  </div>
+
+  <footer>
+    © 2026 <span>Centipede Software</span> — Precision engineering. Relentless execution.
+  </footer>
+
+</div>
+
+</body>
+</html>
