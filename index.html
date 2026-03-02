@@ -22,6 +22,7 @@
   <meta name="twitter:title" content="Centipede Software — Custom Software & AI Solutions" />
   <meta name="twitter:description" content="We build custom software, AI agents, and automation systems that scale your business." />
 
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
@@ -1415,6 +1416,37 @@
     btn.disabled = false;
     btn.innerHTML = 'SEND REQUEST <i class="fa-solid fa-arrow-right"></i>';
   });
+
+  // ─── Animated spinning favicon ───
+  (function() {
+    const img = new Image();
+    img.src = 'pnglogo.png';
+    img.onload = function() {
+      const size = 32;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+      const link = document.querySelector("link[rel='icon']") || document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      if (!link.parentNode) document.head.appendChild(link);
+
+      function drawFrame() {
+        ctx.clearRect(0, 0, size, size);
+        ctx.save();
+        ctx.translate(size/2, size/2);
+        ctx.rotate(angle * Math.PI / 180);
+        ctx.drawImage(img, -size/2, -size/2, size, size);
+        ctx.restore();
+        link.href = canvas.toDataURL('image/png');
+        angle = (angle + 6) % 360;
+      }
+      setInterval(drawFrame, 100);
+      drawFrame();
+    };
+  })();
 
   // ─── Smooth scroll for nav links ───
   document.querySelectorAll('a[href^="#"]').forEach(a => {
