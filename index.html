@@ -168,6 +168,104 @@
       margin-bottom: 30px;
       animation: fadeUp 0.8s ease-out;
     }
+
+    /* ─── Promo Banner ─── */
+    .promo-banner {
+      background: linear-gradient(135deg, rgba(4,153,1,0.12), rgba(34,219,30,0.05));
+      border: 1px solid rgba(34,219,30,0.3);
+      border-radius: 8px;
+      padding: 40px 32px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.8s ease-out 0.4s both;
+    }
+    .promo-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+    .promo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #049901, #22db1e);
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 900;
+      padding: 5px 14px;
+      border-radius: 50px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      animation: pulse 2s infinite;
+    }
+    .promo-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .promo-desc {
+      font-size: 0.95rem;
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto 20px;
+      line-height: 1.7;
+    }
+    .promo-pricing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .promo-original {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+    .promo-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--green);
+      text-shadow: 0 0 30px var(--green-dim);
+    }
+    .promo-save {
+      background: rgba(34,219,30,0.15);
+      border: 1px solid rgba(34,219,30,0.3);
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .promo-features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .promo-features span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .promo-features i { color: var(--green); font-size: 0.75rem; }
     .hero-badge .dot {
       width: 6px;
       height: 6px;
@@ -935,6 +1033,29 @@
       <div class="stat-label">% Direct Access</div>
     </div>
   </div>
+
+  <!-- Promo: OpenClaw AI Agent Setup -->
+  <section id="promo" style="padding: 60px 20px;">
+    <div class="promo-banner">
+      <div class="promo-badge">⚡ LIMITED TIME OFFER</div>
+      <div class="promo-title">AI Agent Setup & Installation</div>
+      <div class="promo-desc">
+        We install and configure <strong style="color:var(--text-bright);">OpenClaw</strong> — a powerful AI agent that runs 24/7 on your infrastructure. Automates customer support, content creation, data processing, scheduling, and more. Your own AI employee that never sleeps.
+      </div>
+      <div class="promo-pricing">
+        <span class="promo-original">$4,999</span>
+        <span class="promo-price">$1,999</span>
+        <span class="promo-save">SAVE 60%</span>
+      </div>
+      <div class="promo-features">
+        <span><i class="fa-solid fa-check"></i> Full installation & config</span>
+        <span><i class="fa-solid fa-check"></i> Custom AI agent tailored to your business</span>
+        <span><i class="fa-solid fa-check"></i> Channel integrations (Slack, email, SMS)</span>
+        <span><i class="fa-solid fa-check"></i> 30-day support included</span>
+      </div>
+      <a href="#contact" class="btn btn-primary">CLAIM THIS DEAL <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </section>
 
   <!-- Services -->
   <section id="services">
