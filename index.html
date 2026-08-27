@@ -1027,8 +1027,6 @@
       .form-row-2 { grid-template-columns: 1fr; }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init({ publicKey: "UB2778MGeBhmBXUDC" });</script>
 </head>
 <body>
 
@@ -1593,7 +1591,8 @@
             </div>
           </div>
           <div class="form-group">
-            <textarea name="message" rows="4" placeholder="Anything else to add? (optional)"></textarea>
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+          <textarea name="message" rows="4" placeholder="Anything else to add? (optional)"></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="justify-content:center;width:100%;">SEND MY REQUEST <i class="fa-solid fa-arrow-right"></i></button>
           <div class="form-status" id="formStatus"></div>
@@ -1672,34 +1671,38 @@
     particleContainer.appendChild(p);
   }
 
-  // ─── Form handler (EmailJS) ───
+  // ─── Form handler ───
   document.getElementById('contactForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
     const status = document.getElementById('formStatus');
     const btn = form.querySelector('button[type="submit"]');
 
-    const checked = [...form.querySelectorAll('input[name="situation"]:checked')].map(el => el.value);
-    const situation = checked.length ? checked.join(', ') : 'Not specified';
-
     btn.disabled = true;
     btn.innerHTML = 'SENDING... <i class="fa-solid fa-spinner fa-spin"></i>';
 
     try {
-      await emailjs.send('service_dwrov95', 'template_thhminb', {
-        from_name: form.from_name.value,
-        from_email: form.from_email.value,
-        business: form.business.value || 'Not provided',
-        situation: situation,
-        message: form.message.value || 'No message'
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from_name: form.from_name.value,
+          from_email: form.from_email.value,
+          business: form.business.value,
+          situation: [...form.querySelectorAll('input[name="situation"]:checked')].map(el => el.value),
+          message: form.message.value,
+          website: form.website.value
+        })
       });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message);
 
       status.className = 'form-status success';
-      status.textContent = '✓ Request sent. We will be in touch within 24 hours.';
+      status.textContent = '\u2713 ' + (result.message || 'Request sent. We will be in touch within 24 hours.');
       form.reset();
     } catch (err) {
       status.className = 'form-status error';
-      status.textContent = 'Something went wrong. Email us directly at contact@centipede.dev';
+      status.textContent = err.message || 'Something went wrong. Email us directly at contact@centipede.dev';
     }
 
     btn.disabled = false;
